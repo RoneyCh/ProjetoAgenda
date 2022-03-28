@@ -31,7 +31,7 @@ class Login {
     // Email validation
     if(!validator.isEmail(this.body.email)) this.errors.push('Email inválido');
     // Password Validation
-    if(this.body.password.length < 4 || this.body.password > 12) this.errors.push('A senha precisa ter entre 4 e 12 caracteres');
+    if(this.body.password.length < 4 || this.body.password > 12) this.errors.push('A senha precisa ter letras e números e estar entre 4 e 12 caracteres');
 
   }
 
