@@ -24,13 +24,19 @@ class Contato {
     this.contato = await ContatoModel.create(this.body);
   }
 
+  async searchId(id) {
+    if(typeof id !== 'string') return;
+    const user = await ContatoModel.findById(id);
+    return user;
+  }
+
   isValid() {
     // Validation
     this.cleanUp();
     // Email validation
     if(this.body.email && !validator.isEmail(this.body.email)) this.errors.push('Email inválido');
     if(!this.body.nome) this.errors.push('Nome é um campo obrigatório.');
-    if(!this.body.email && !this.body.telefone) this.errors.push('Pelo menos um contato precisa ser enviado.');
+    if(!this.body.email && !this.body.fone) this.errors.push('Pelo menos um contato precisa ser enviado.');
   }
 
   cleanUp() {
