@@ -1,7 +1,23 @@
-exports.index = (req,res) => {
-    res.render('contato');
+const Contato = require("../models/ContatoModel");
+
+exports.index = (req, res) => {
+  res.render("contato");
 };
 
-exports.register = (req,res) => {
-    res.send('oi');
+exports.register = async (req, res) => {
+  try {
+    const contato = new Contato(req.body);
+    await contato.register();
+    if (contato.errors.length > 0) {
+      req.flash("errors", contato.errors);
+      req.session.save(() => res.redirect("/contato"));
+      return;
+    }
+
+    req.flash("success", "Contato registrado com sucesso!");
+    req.session.save(() => res.redirect("/"));
+    return;
+  } catch (e) {
+    console.log(e);
+  }
 };
